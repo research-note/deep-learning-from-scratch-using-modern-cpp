@@ -77,6 +77,8 @@ def _impl(ctx):
                     flag_groups = ([
                         flag_group(
                             flags = [
+                                "-lm",
+                                "-ldl",
                                 "-lstdc++",
                                 "-pg",
                                 "-Og",
