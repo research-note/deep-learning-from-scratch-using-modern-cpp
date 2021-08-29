@@ -1,4 +1,4 @@
-/c  *
+/*
  * Build executable object file liking with cc_library lib file example.
  *
  * Copyright Bazel organization
