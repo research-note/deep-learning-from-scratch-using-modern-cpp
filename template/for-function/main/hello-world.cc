@@ -5,8 +5,8 @@
  *
  */
 
-#include "lib/hello-time.h"
-#include "main/hello-greet.h"
+#include "lib/hello-time.hpp"
+#include "main/hello-greet.hpp"
 #include <iostream>
 #include <string>
 
