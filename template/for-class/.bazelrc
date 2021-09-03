@@ -11,4 +11,4 @@ build:clang_config --cpu=k8
 
 build:clang_config --host_crosstool_top=@bazel_tools//tools/cpp:toolchain
 
-build:clang_config --cxxopt=-std=c++20
+build --cxxopt=-std=c++20
