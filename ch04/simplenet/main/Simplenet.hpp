@@ -1,12 +1,12 @@
 /*
- * Build obj linking with cc_library file example.
+ * Build obj linking with cc_library Simplenet Class.
  *
  * Copyright Bazel organization
  *
  */
 
-#ifndef CH04_SIMPLENET_H_
-#define CH04_SIMPLENET_H_
+#ifndef CH04_SIMPLENET_MAIN_H_
+#define CH04_SIMPLENET_MAIN_H_
 
 #include <cstddef>
 #include <vector>
@@ -47,4 +47,4 @@ private:
 
 #include "Simplenet.cc"
 
-#endif  // CH04_SIMPLENET_H_
+#endif  // CH04_SIMPLENET_MAIN_H_

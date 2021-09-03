@@ -1,14 +1,16 @@
 /*
  * Build gradient lib.
  *
+ * Copyright Paran Lee
+ *
  */
 
-#ifndef CH04_LIB_GRADIENT_H_
-#define CH04_LIB_GRADIENT_H_
+#ifndef CH04_LIB_SIMPLENET_GRADIENT_HPP_
+#define CH04_LIB_SIMPLENET_GRADIENT_HPP_
 
-template <typename T>
-T gradient();
+template <typename F, typename T>
+T gradient(F f, T x);
 
 #include "gradient.cc"
 
-#endif  // CH04_LIB_GRADIENT_H_
+#endif  // CH04_LIB_SIMPLENET_GRADIENT_HPP_

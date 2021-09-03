@@ -5,10 +5,15 @@
  *
  */
 
-#include "lib/hello-time.h"
-#include "main/sigmoid.hpp"
 #include <iostream>
 #include <string>
+
+#include "lib/cross_entropy_error.hpp"
+#include "lib/gradient.hpp"
+#include "lib/softmax.hpp"
+#include "main/Simplenet.hpp"
+
+using namespace std;
 
 int main(int argc, char** argv) {
     double x = -5.5, y = 4.3;
@@ -16,10 +21,8 @@ int main(int argc, char** argv) {
         x = *argv[1], y = *argv[2]; 
     }
 
-    print_localtime();
-    std::cout << "sigmoid(" << x << "): " << sigmoid(x) << std::endl;
+    // cout << "cross_entropy_error(" << x << "): " << cross_entropy_error(x) << endl;
 
-    print_localtime();
-    std::cout << "sigmoid(" << y << "): " << sigmoid(y) << std::endl;
+    // cout << "gradient(" << y << "): " << gradient(y) << endl;
     return 0;
 }

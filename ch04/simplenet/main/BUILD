@@ -1,7 +1,7 @@
 load("@rules_cc//cc:defs.bzl", "cc_binary", "cc_library")
 
 cc_library(
-    name = "simplenet",
+    name = "bin",
     hdrs = ["Simplenet.hpp", "Simplenet.cc"],
 )
 
@@ -9,7 +9,7 @@ cc_binary(
     name = "main",
     srcs = ["main.cc"],
     deps = [
-        ":simplenet",
+        ":bin",
         "//lib:lib",
     ],
 )

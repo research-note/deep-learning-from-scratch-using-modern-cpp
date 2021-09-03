@@ -1,14 +1,16 @@
 /*
  * Build cross_entropy_error lib.
  *
+ * Copyright Paran Lee
+ *
  */
 
-#ifndef CH04_LIB_CROSS_ENTROPY_ERROR_H_
-#define CH04_LIB_CROSS_ENTROPY_ERROR_H_
+#ifndef CH04_SIMPLENET_LIB_ENTROPY_ERROR_H_
+#define CH04_SIMPLENET_LIB_ENTROPY_ERROR_H_
 
 template <typename Y, typename T>
-auto cross_entropy_error(Y y, T t)
+Y cross_entropy_error(Y y, T t);
 
 #include "cross_entropy_error.cc"
 
-#endif  // CH04_LIB_CROSS_ENTROPY_ERROR_H_
+#endif  // CH04_SIMPLENET_LIB_ENTROPY_ERROR_H_
