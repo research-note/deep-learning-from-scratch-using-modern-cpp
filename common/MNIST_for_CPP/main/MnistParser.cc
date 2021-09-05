@@ -1,13 +1,10 @@
 #include "MnistParser.hpp"
 
 // set appropriate path for data
-#define TRAIN_IMAGE "./data/train-images.idx3-ubyte"
-#define TRAIN_LABEL "./data/train-labels.idx1-ubyte"
 #define TEST_IMAGE "./data/t10k-images.idx3-ubyte"
 #define TEST_LABEL "./data/t10k-labels.idx1-ubyte"
 
 // #define SIZE 784 // 28*28
-#define NUM_TRAIN 60000
 // #define NUM_TEST 10000
 #define LEN_INFO_IMAGE 4
 #define LEN_INFO_LABEL 2
@@ -23,14 +20,10 @@ int width[MAX_NUM_OF_IMAGES], height[MAX_NUM_OF_IMAGES];
 int info_image[LEN_INFO_IMAGE];
 int info_label[LEN_INFO_LABEL];
 
-unsigned char train_image_char[NUM_TRAIN][SIZE];
 unsigned char test_image_char[NUM_TEST][SIZE];
-unsigned char train_label_char[NUM_TRAIN][1];
 unsigned char test_label_char[NUM_TEST][1];
 
-double train_image[NUM_TRAIN][SIZE];
-// double test_image[NUM_TEST][SIZE];
-int  train_label[NUM_TRAIN];
+double test_image[NUM_TEST][SIZE];
 int test_label[NUM_TEST];
 
 MnistParser::MnistParser() {
@@ -97,14 +90,8 @@ void MnistParser::labelChar2Int(int num_data, unsigned char data_label_char[][1]
 
 void MnistParser::loadMnist()
 {
-    readMnistImage(TRAIN_IMAGE, NUM_TRAIN, LEN_INFO_IMAGE, SIZE, train_image_char, info_image);
-    imageChar2Double(NUM_TRAIN, train_image_char, train_image);
-
     readMnistImage(TEST_IMAGE, NUM_TEST, LEN_INFO_IMAGE, SIZE, test_image_char, info_image);
     imageChar2Double(NUM_TEST, test_image_char, test_image);
-    
-    readMnistLabel(TRAIN_LABEL, NUM_TRAIN, LEN_INFO_LABEL, 1, train_label_char, info_label);
-    labelChar2Int(NUM_TRAIN, train_label_char, train_label);
     
     readMnistLabel(TEST_LABEL, NUM_TEST, LEN_INFO_LABEL, 1, test_label_char, info_label);
     labelChar2Int(NUM_TEST, test_label_char, test_label);
@@ -123,19 +110,6 @@ void MnistParser::printMnistPixel(double data_image[][SIZE], int num_data)
         putchar('\n');
     }
 }
-
-
-void MnistParser::print_mnist_label(int data_label[], int num_data)
-{
-    int i;
-    if (num_data == NUM_TRAIN)
-        for (i=0; i<num_data; i++)
-            printf("train_label[%d]: %d\n", i, train_label[i]);
-    else
-        for (i=0; i<num_data; i++)
-            printf("test_label[%d]: %d\n", i, test_label[i]);
-}
-
 
 // name: path for saving image (ex: "./images/sample.pgm")
 void MnistParser::saveImage(int n, char name[])

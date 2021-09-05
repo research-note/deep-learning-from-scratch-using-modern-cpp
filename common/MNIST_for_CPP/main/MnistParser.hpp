@@ -22,7 +22,6 @@ class MnistParser {
         void imageChar2Double(int num_data, unsigned char data_image_char[][SIZE], double data_image[][SIZE]);
         void labelChar2Int(int num_data, unsigned char data_label_char[][1], int data_label[]);
         void printMnistPixel(double data_image[][SIZE], int num_data);
-        void print_mnist_label(int data_label[], int num_data);
         void saveImage(int n, char name[]);
         void saveMnistPgm(double data_image[][SIZE], int index);
 };
