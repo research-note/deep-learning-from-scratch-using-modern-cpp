@@ -5,12 +5,12 @@
  *
  */
 
-#ifndef CH04_SIMPLENET_MAIN_H_
-#define CH04_SIMPLENET_MAIN_H_
+#ifndef CH04_SIMPLENET_MAIN_SIMPLENET_H_
+#define CH04_SIMPLENET_MAIN_SIMPLENET_H_
 
-#include <cstddef>
 #include <vector>
 #include <optional>
+#include <cstddef>
 
 using namespace std;
 
@@ -18,7 +18,8 @@ template <typename T>
 class Simplenet
 {
 public:
-	explicit Simplenet(size_t width = kDefaultWidth, size_t height = kDefaultHeight);
+	explicit Simplenet(size_t width = kDefaultWidth, 
+		size_t height = kDefaultHeight);
 	virtual ~Simplenet() = default;
 
 	// 복제 생성자와 대입 연산자를 명시적으로 디폴트로 지정한다.
@@ -35,6 +36,8 @@ public:
 	size_t getHeight() const { return mHeight; }
 	size_t getWidth() const { return mWidth; }
 
+	void randomize();
+
 	static const size_t kDefaultWidth = 10;
 	static const size_t kDefaultHeight = 10;
 
@@ -47,4 +50,4 @@ private:
 
 #include "Simplenet.cc"
 
-#endif  // CH04_SIMPLENET_MAIN_H_
+#endif  // CH04_SIMPLENET_MAIN_SIMPLENET_H_

@@ -2,7 +2,10 @@ load("@rules_cc//cc:defs.bzl", "cc_binary", "cc_library")
 
 cc_library(
     name = "bin",
-    hdrs = ["Simplenet.hpp", "Simplenet.cc"],
+    hdrs = [
+        "NDGrid.hpp", "NDGrid.cc",
+        "Simplenet.hpp", "Simplenet.cc",
+    ],
 )
 
 cc_binary(
