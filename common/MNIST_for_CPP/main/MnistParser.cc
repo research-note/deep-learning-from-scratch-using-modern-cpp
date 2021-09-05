@@ -10,8 +10,6 @@
 #define LEN_INFO_LABEL 2
 
 #define MAX_IMAGESIZE 1280
-#define MAX_BRIGHTNESS 255
-#define MAX_FILENAME 256
 #define MAX_NUM_OF_IMAGES 1
 
 unsigned char image[MAX_NUM_OF_IMAGES][MAX_IMAGESIZE][MAX_IMAGESIZE];
@@ -34,6 +32,15 @@ MnistParser::~MnistParser() {
 
 }
 
+void MnistParser::loadMnist()
+{
+    readMnistImage(TEST_IMAGE, NUM_TEST, LEN_INFO_IMAGE, SIZE, test_image_char, info_image);
+    imageChar2Double(NUM_TEST, test_image_char, test_image);
+    
+    readMnistLabel(TEST_LABEL, NUM_TEST, LEN_INFO_LABEL, 1, test_label_char, info_label);
+    labelChar2Int(NUM_TEST, test_label_char, test_label);
+}
+
 void MnistParser::readMnistImage(char *file_path, int num_data, int len_info, int arr_n, unsigned char data_char[][SIZE], int info_arr[])
 {
     int i, fd;
@@ -50,6 +57,14 @@ void MnistParser::readMnistImage(char *file_path, int num_data, int len_info, in
     }
 
     close(fd);
+}
+
+void MnistParser::imageChar2Double(int num_data, unsigned char data_image_char[][SIZE], double data_image[][SIZE])
+{
+    int i, j;
+    for (i=0; i<num_data; i++)
+        for (j=0; j<SIZE; j++)
+            data_image[i][j]  = (double)data_image_char[i][j] / 255.0;
 }
 
 void MnistParser::readMnistLabel(char *file_path, int num_data, int len_info, int arr_n, unsigned char data_char[][1], int info_arr[])
@@ -70,91 +85,9 @@ void MnistParser::readMnistLabel(char *file_path, int num_data, int len_info, in
     close(fd);
 }
 
-
-void MnistParser::imageChar2Double(int num_data, unsigned char data_image_char[][SIZE], double data_image[][SIZE])
-{
-    int i, j;
-    for (i=0; i<num_data; i++)
-        for (j=0; j<SIZE; j++)
-            data_image[i][j]  = (double)data_image_char[i][j] / 255.0;
-}
-
-
 void MnistParser::labelChar2Int(int num_data, unsigned char data_label_char[][1], int data_label[])
 {
     int i;
     for (i=0; i<num_data; i++)
         data_label[i]  = (int)data_label_char[i][0];
-}
-
-
-void MnistParser::loadMnist()
-{
-    readMnistImage(TEST_IMAGE, NUM_TEST, LEN_INFO_IMAGE, SIZE, test_image_char, info_image);
-    imageChar2Double(NUM_TEST, test_image_char, test_image);
-    
-    readMnistLabel(TEST_LABEL, NUM_TEST, LEN_INFO_LABEL, 1, test_label_char, info_label);
-    labelChar2Int(NUM_TEST, test_label_char, test_label);
-}
-
-
-void MnistParser::printMnistPixel(double data_image[][SIZE], int num_data)
-{
-    int i, j;
-    for (i=0; i<num_data; i++) {
-        printf("image %d/%d\n", i+1, num_data);
-        for (j=0; j<SIZE; j++) {
-            printf("%1.1f ", data_image[i][j]);
-            if ((j+1) % 28 == 0) putchar('\n');
-        }
-        putchar('\n');
-    }
-}
-
-// name: path for saving image (ex: "./images/sample.pgm")
-void MnistParser::saveImage(int n, char name[])
-{
-    char file_name[MAX_FILENAME];
-    FILE *fp;
-    int x, y;
-
-    if (name[0] == '\0') {
-        printf("output file name (*.pgm) : ");
-        scanf("%s", file_name);
-    } else strcpy(file_name, name);
-
-    if ( (fp=fopen(file_name, "wb"))==NULL ) {
-        printf("could not open file\n");
-        exit(1);
-    }
-
-    fputs("P5\n", fp);
-    fputs("# Created by Image Processing\n", fp);
-    fprintf(fp, "%d %d\n", width[n], height[n]);
-    fprintf(fp, "%d\n", MAX_BRIGHTNESS);
-    for (y=0; y<height[n]; y++)
-        for (x=0; x<width[n]; x++)
-            fputc(image[n][x][y], fp);
-        fclose(fp);
-        printf("Image was saved successfully\n");
-}
-
-
-// save mnist image (call for each image)
-// store train_image[][] into image[][][]
-void MnistParser::saveMnistPgm(double data_image[][SIZE], int index)
-{
-    int n = 0; // id for image (set to 0)
-    int x, y;
-
-    width[n] = 28;
-    height[n] = 28;
-
-    for (y=0; y<height[n]; y++) {
-        for (x=0; x<width[n]; x++) {
-            image[n][x][y] = data_image[index][y * width[n] + x] * 255.0;
-        }
-    }
-
-    saveImage(n, "");
 }
