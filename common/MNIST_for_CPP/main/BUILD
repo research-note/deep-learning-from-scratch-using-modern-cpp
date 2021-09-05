@@ -1,14 +1,14 @@
 load("@rules_cc//cc:defs.bzl", "cc_binary", "cc_library")
 
 cc_library(
-    name = "OR",
-    hdrs = ["OR.hpp", "OR.cpp"],
+    name = "parser",
+    hdrs = ["MnistParser.hpp", "MnistParser.cc"],
 )
 
 cc_binary(
-    name = "hello-world",
-    srcs = ["hello-world.cc"],
+    name = "example",
+    srcs = ["example.cc"],
     deps = [
-        ":OR"
+        ":parser"
     ]
 )
