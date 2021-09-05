@@ -19,7 +19,6 @@ class MnistParser {
     private: 
         void readMnistImage(char *file_path, int num_data, int len_info, int arr_n, unsigned char data_char[][SIZE], int info_arr[]);
         void readMnistLabel(char *file_path, int num_data, int len_info, int arr_n, unsigned char data_char[][1], int info_arr[]);
-        void flipLong(unsigned char * ptr);
         void imageChar2Double(int num_data, unsigned char data_image_char[][SIZE], double data_image[][SIZE]);
         void labelChar2Int(int num_data, unsigned char data_label_char[][1], int data_label[]);
         void printMnistPixel(double data_image[][SIZE], int num_data);

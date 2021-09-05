@@ -41,22 +41,6 @@ MnistParser::~MnistParser() {
 
 }
 
-void MnistParser::flipLong(unsigned char * ptr)
-{
-    unsigned char val;
-    
-    // Swap 1st and 4th bytes
-    val = *(ptr);
-    *(ptr) = *(ptr+3);
-    *(ptr+3) = val;
-    
-    // Swap 2nd and 3rd bytes
-    ptr += 1;
-    val = *(ptr);
-    *(ptr) = *(ptr+1);
-    *(ptr+1) = val;
-}
-
 void MnistParser::readMnistImage(char *file_path, int num_data, int len_info, int arr_n, unsigned char data_char[][SIZE], int info_arr[])
 {
     int i, fd;
@@ -67,18 +51,9 @@ void MnistParser::readMnistImage(char *file_path, int num_data, int len_info, in
         exit(-1);
     }
     
-    read(fd, info_arr, len_info * sizeof(int));
-    
-    // read-in information about size of data
-    for (i=0; i<len_info; i++) { 
-        ptr = (unsigned char *)(info_arr + i);
-        flipLong(ptr);
-        ptr = ptr + sizeof(int);
-    }
-    
     // read-in mnist numbers (pixels|labels)
     for (i=0; i<num_data; i++) {
-        read(fd, data_char[i], arr_n * sizeof(unsigned char));   
+        pread(fd, data_char[i], arr_n * sizeof(unsigned char), len_info * sizeof(int));
     }
 
     close(fd);
@@ -94,18 +69,9 @@ void MnistParser::readMnistLabel(char *file_path, int num_data, int len_info, in
         exit(-1);
     }
     
-    read(fd, info_arr, len_info * sizeof(int));
-    
-    // read-in information about size of data
-    for (i=0; i<len_info; i++) { 
-        ptr = (unsigned char *)(info_arr + i);
-        flipLong(ptr);
-        ptr = ptr + sizeof(int);
-    }
-    
     // read-in mnist numbers (pixels|labels)
     for (i=0; i<num_data; i++) {
-        read(fd, data_char[i], arr_n * sizeof(unsigned char));   
+        pread(fd, data_char[i], arr_n * sizeof(unsigned char), len_info * sizeof(int));
     }
 
     close(fd);

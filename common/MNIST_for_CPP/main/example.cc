@@ -11,8 +11,8 @@ int main(void)
     cout<<fixed;
     cout.precision(1);
     for (int i=0; i<28; ++i) {
-        for (i=0; i<784; i++) {
-            cout << parser->test_image[0][i] << " ";
+        for (int j=0; j<28; ++j) {
+            cout << parser->test_image[0][(i * 28) + j] << " ";
         }
         cout << endl;
     }
