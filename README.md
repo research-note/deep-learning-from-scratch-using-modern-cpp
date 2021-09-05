@@ -1,11 +1,19 @@
 # Deep Learning From Scratch Using Modern C++
 
+## Pre install
+
+Use `std::execution::par` parallel execution. They are used to specify the execution policy of parallel algorithms. so, install tbb!
+
+```console
+foo@bar:~$ sudo apt -y install libtbb-dev
+```
+
 ## Build
 
 Build with Clang-12.
 
 ```console
-foo@bar:ch00$ bazel build --config=clang_config  //main:hello-world
+foo@bar:template/for-class$ bazel build --config=clang_config  //main:hello-world
 ```
 
 ## Test
@@ -23,14 +31,14 @@ foo@bar:~$ sudo apt -y install uftrace valgrind
 Test hello-world program with uftrace in terminal.
 
 ```console
-foo@bar:ch00$ uftrace ./bazel-bin/main/hello-world
+foo@bar:template/for-class$ uftrace ./bazel-bin/main/hello-world
 ```
 ### valgrind
 
 Test hello-world program with valgrind in terminal.
 
 ```console
-foo@bar:ch00$ valgrind ./bazel-bin/main/hello-world
+foo@bar:template/for-class$ valgrind ./bazel-bin/main/hello-world
 ```
 
 ## lint
@@ -45,7 +53,7 @@ foo@bar:~$ echo "export PATH=\$PATH:\$HOME/.local/bin" >> .bashrc && source .bas
 And do lint.
 
 ```console
-foo@bar:ch00$ cpplint main/hello-world.cc
+foo@bar:template/for-class$ cpplint main/hello-world.cc
 ```
 
 # Reference
