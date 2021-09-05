@@ -43,4 +43,4 @@ bazel-*
 target/
 
 # tags
-tags
+*tags
