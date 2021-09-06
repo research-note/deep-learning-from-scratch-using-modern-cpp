@@ -5,30 +5,30 @@
  *
  */
 
-#include "lib/cross_entropy_error.hpp"
+#include <vector>
+#include <functional>
 #include <iostream>
+#include <numeric>
+#include <execution>
+
 #include <cmath>
 
-// def cross_entropy_error(y, t):
-//     if y.ndim == 1:
-//         t = t.reshape(1, t.size)
-//         y = y.reshape(1, y.size)
-
-//     # 훈련 데이터가 원-핫 벡터라면 정답 레이블의 인덱스로 반환
-//     if t.size == y.size:
-//         t = t.argmax(axis=1)
-
-//     batch_size = y.shape[0]
-//     return -np.sum(np.log(y[np.arange(batch_size), t] + 1e-7)) / batch_size
-
+#include "lib/cross_entropy_error.hpp"
 
 template <typename Y, typename T>
-Y cross_entropy_error(Y y, T t) {
+auto cross_entropy_error(Y y, T t) {
     const auto delta = 1e-7;
-    auto sum = decltype(y)::value_type(0);
-    for (auto& [yv, tv] : zip(y, t)) {
-        sum += tv * log(yv + delta);
+    std::transform(std::execution::par,
+        y.begin(), y.end(), t.begin(), y.begin(),
+        [&delta](auto yv, auto tv) {
+            return -log(yv + delta) * tv; 
+        });
+    std::cout << "cross_entropy_error(y, t) :" << std::endl;
+    for (auto yv : y) {
+        std::cout << ' ' << yv;
     }
-
-    return sum;// -std::accumulate(es.begin(), es.end(), decltype(es)::value_type(0));
+    std::cout << std::endl;
+    const auto result = std::reduce(std::execution::par, y.cbegin(), y.cend());
+    std::cout << "cross_entropy_error(y, t) :" << result << std::endl;
+    return result;
 }

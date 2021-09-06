@@ -7,6 +7,7 @@
 
 #include <stdexcept>
 #include <utility>
+#include <random>
 
 template <typename T>
 Simplenet<T>::Simplenet(size_t width, size_t height)
@@ -17,6 +18,23 @@ Simplenet<T>::Simplenet(size_t width, size_t height)
     for (auto& column : mCells) {
         column.resize(mHeight);
     }
+}
+
+template <typename T>
+void randomize()
+{
+    random_device seeder;
+    const auto seed = seeder.entropy() ? seeder() : time(nullptr);
+    mt19937 eng(static_cast<mt19937::result_type>(seed));
+    normal_distribution<T> dist(0.0, 1.0);
+    auto gen = bind(dist, eng);
+    // for (auto& column : mCells) {
+    //     for (auto& row : column) {
+    //         row = gen();
+    //         std::cout << ' ' << row << std::end;
+    //     }
+    //     std::cout << std::end;
+    // }
 }
 
 template <typename T>

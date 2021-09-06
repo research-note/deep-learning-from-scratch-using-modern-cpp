@@ -5,11 +5,12 @@
  *
  */
 
-#include "lib/softmax.hpp"
 #include <iostream>
 #include <algorithm>
 #include <numeric>
-#include <cmath> 
+#include <cmath>
+
+#include "lib/softmax.hpp"
 
 // def softmax(x):
 //     if x.ndim == 2:
@@ -24,13 +25,25 @@
 
 template <typename T>
 T softmax(T x) {
-    auto max = *max_element(x.begin(), x.end());
-    std::for_each(x.begin(), x.end(), [](auto v) {
-        std::cout << v << ' ';
-    });
+    auto max = std::max_element(x.begin(), x.end());
 
-    T y = std::transform(x.begin(), x.end(), x.begin(), [max](auto v) -> auto { return exp(v - max); });
+    std::transform(std::execution::par, x.begin(), x.end(),
+        x.begin(), [max](auto v) -> auto {
+            return exp(v - max);
+        });
 
-    auto sum = std::accumulate(y.begin(), y.end(), decltype(y)::value_type(0));
-    return std::transform(y.begin(), y.end(), y.begin(), [max](auto v) -> auto { return v / sum; });
+    const auto sum = std::reduce(std::execution::par,
+        x.cbegin(), x.cend());
+
+    std::transform(std::execution::par, x.begin(), x.end(),
+        x.begin(), [sum](auto v) -> auto {
+            return v / sum;
+        });
+
+    std::cout << "softmax(x) :" << std::endl;
+    std::for_each(x.begin(), x.end(),
+        [](auto v) { std::cout << v << ' '; });
+    std::cout << std::endl;
+
+    return x;
 }
