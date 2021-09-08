@@ -89,18 +89,3 @@ std::vector<std::vector<std::optional<T>>>& Cuboid<T>::at(size_t x)
 {
     return const_cast<std::vector<std::vector<std::optional<T>&>>>(std::as_const(*this).at(x));
 }
-
-
-// template <typename T>
-// std::vector<std::vector<std::optional<T>>>& Cuboid<T>::operator[](size_t x)
-// {
-//     verifyCoordinate(x);
-//     return mCells[x];
-// }
-
-// template <typename T>
-// std::vector<std::vector<std::optional<T>>>& Cuboid<T>::operator[](size_t x) const
-// {
-//     verifyCoordinate(x);
-//     return mCells[x];
-// }

@@ -31,11 +31,13 @@ int main(int argc, char** argv) {
     numerical_gradient(
         [](auto v) -> auto { return pow(v, 2); }, y);
 
-    NDGrid<long double, 3> layerWeight;
-    layerWeight[2][1][2] = 5;
-    layerWeight[1][1][1] = 5;
+    NDGrid<long double, 3> layerWeight (3);
+    layerWeight[0][0][0] = 5;
 
-    cout << layerWeight[2][1][2] << endl;
+    cout << "layerWeight.getSize(): " << layerWeight.getSize() << endl;
+    cout << "layerWeight[2].getSize(): " << (layerWeight[2]).getSize() << endl;
+    cout << "layerWeight[2][2].getSize(): " << (layerWeight[2][2]).getSize() << endl;
+    cout << layerWeight[0][0][0] << endl;
     // layerWeight.randomize();
 
     return 0;

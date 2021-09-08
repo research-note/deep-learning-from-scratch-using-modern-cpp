@@ -41,8 +41,8 @@ public:
     std::vector<std::vector<std::optional<T>>>& at(size_t x);
     const std::vector<std::vector<std::optional<T>>>& at(size_t x) const;
 
-    // std::vector<std::vector<std::optional<T>>>& operator[](size_t x);
-    // const std::vector<std::vector<std::optional<T>>>& operator[](size_t x) const;
+    std::optional<T>& operator[](size_t x);
+    const std::optional<T>& operator[](size_t x) const;
 
     size_t getWidth() const { return mWidth; }
     size_t getHeight() const { return mHeight; }
@@ -57,7 +57,8 @@ private:
     void verifyCoordinate(size_t x, size_t y) const;
     void verifyCoordinate(size_t x, size_t y, size_t z) const;
 
-    std::vector<std::vector<std::vector<std::optional<T>>>> mCells;
+    std::vector<std::vector<std::optional<T>>> mColums;
+    
     size_t mWidth, mHeight, mDepth;
 };
 

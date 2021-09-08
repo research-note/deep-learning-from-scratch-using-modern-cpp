@@ -25,11 +25,12 @@ public:
     void resize(size_t newSize);
     size_t getSize() const { return mElements.size(); }
 
-    static const size_t kDefaultSize = 10;
+    static const size_t kDefaultSize = 512;
 
 private:
     std::vector<NDGrid<T, N-1>> mElements;
 };
+
 
 template <typename T>
 class NDGrid<T, 1>
@@ -44,7 +45,7 @@ public:
     void resize(size_t newSize);
     size_t getSize() const { return mElements.size(); }
 
-    static const size_t kDefaultSize = 10;
+    static const size_t kDefaultSize = 512;
 
 private:
     std::vector<T> mElements;

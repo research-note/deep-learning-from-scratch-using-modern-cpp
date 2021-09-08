@@ -18,7 +18,7 @@ NDGrid<T, N>::NDGrid(size_t size)
 template <typename T, size_t N>
 void NDGrid<T, N>::resize(size_t newSize)
 {
-    mElements.resize(newSize);
+    mElements.resize(N == 3 ? newSize : kDefaultSize);
 
     // Resizing the vector calls the 0-argument constructor for
     // the NDGrid<T, N-1> elements, which constructs
@@ -26,7 +26,7 @@ void NDGrid<T, N>::resize(size_t newSize)
     // resize() on each of the elements to recursively resize all
     // nested Grid elements.
     for (auto& element : mElements) {
-        element.resize(newSize);
+        element.resize(kDefaultSize);
     }
 }
 
@@ -41,6 +41,7 @@ const NDGrid<T, N-1>& NDGrid<T, N>::operator[](size_t x) const
 {
     return mElements[x];
 }
+
 
 template <typename T>
 NDGrid<T, 1>::NDGrid(size_t size)
