@@ -42,5 +42,10 @@ int main(int argc, char** argv) {
     myGridOnHeap->at(0, 0) = 10;
     x = myGridOnHeap->at(0, 0).value_or(0);
 
+    auto myCuboidOnHeap = make_unique<Cuboid<double>>(4, 2, 3); // 2x2 Grid in heap memory pool.
+
+    Cuboid<double> cu(3,4,5);
+    // cu.at(0, 0, 0) = 1;
+
     std::cout << "Template Class with .hpp + .cpp" << '\n';
 }
