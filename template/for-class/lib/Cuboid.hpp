@@ -31,8 +31,18 @@ public:
     Cuboid(Cuboid&& src) = default;
     Cuboid<T>& operator=(Cuboid&& rhs) = default;
 
+
     std::optional<T>& at(size_t x, size_t y, size_t z);
     const std::optional<T>& at(size_t x, size_t y, size_t z) const;
+
+    std::vector<std::optional<T>>& at(size_t x, size_t y);
+    const std::vector<std::optional<T>>& at(size_t x, size_t y) const;
+
+    std::vector<std::vector<std::optional<T>>>& at(size_t x);
+    const std::vector<std::vector<std::optional<T>>>& at(size_t x) const;
+
+    // std::vector<std::vector<std::optional<T>>>& operator[](size_t x);
+    // const std::vector<std::vector<std::optional<T>>>& operator[](size_t x) const;
 
     size_t getWidth() const { return mWidth; }
     size_t getHeight() const { return mHeight; }
@@ -43,6 +53,8 @@ public:
     static const size_t kDefaultDepth = 10;
 
 private:
+    void verifyCoordinate(size_t x) const;
+    void verifyCoordinate(size_t x, size_t y) const;
     void verifyCoordinate(size_t x, size_t y, size_t z) const;
 
     std::vector<std::vector<std::vector<std::optional<T>>>> mCells;
